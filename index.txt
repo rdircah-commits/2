@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PinkCare · 多國語言電子病歷</title>
+
+<style>
+:root {
+    --pink-50: #fff7fa;
+    --pink-100: #ffe9f0;
+    --pink-200: #ffd1df;
+    --pink-300: #ffadc5;
+    --pink-400: #ff82a8;
+    --pink-500: #f65d8b;
+    --pink-600: #dc3f70;
+    --pink-700: #b72b58;
+
+    --purple: #9b72cf;
+    --red: #ef5350;
+    --green: #39a875;
+    --blue: #5c8ee6;
+    --orange: #ed9950;
+
+    --bg: #fff8fb;
+    --card: rgba(255,255,255,.88);
+    --text: #402b35;
+    --muted: #806b74;
+    --border: #f3d8e2;
+    --shadow: 0 14px 45px rgba(190, 66, 111, .12);
+    --radius: 22px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family:
+        Inter,
+        "Noto Sans TC",
+        "Noto Sans SC",
+        "Noto Sans JP",
+        "Noto Sans KR",
+        "Noto Sans Thai",
+        Arial,
+        sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255, 174, 201, .32), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(220, 190, 255, .20), transparent 24%),
+        linear-gradient(135deg, #fff9fb, #fff2f7 55%, #fffafd);
+    min-height: 100vh;
+}
+
+body.dark {
+    --bg: #21171c;
+    --card: rgba(47, 34, 41, .95);
+    --text: #fff1f5;
+    --muted: #c9aeb8;
+    --border: #5b3b48;
+    --shadow: 0 18px 55px rgba(0,0,0,.25);
+
+    background:
+        radial-gradient(circle at 10% 10%, rgba(160, 55, 91, .28), transparent 25%),
+        linear-gradient(135deg, #1f171b, #2b1b23);
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    background: rgba(255, 248, 251, .78);
+    border-bottom: 1px solid var(--border);
+}
+
+.dark .topbar {
+    background: rgba(33, 23, 28, .82);
+}
+
+.nav {
+    max-width: 1450px;
+    margin: auto;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-weight: 900;
+    color: var(--pink-600);
+    font-size: 20px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--pink-500), #ff9abc);
+    color: white;
+    box-shadow: 0 8px 22px rgba(246,93,139,.28);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+select,
+.small-input {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 9px 12px;
+    outline: none;
+}
+
+.icon-btn,
+.action-btn {
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 13px;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: .2s;
+}
+
+.icon-btn:hover,
+.action-btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--pink-300);
+}
+
+.hero {
+    max-width: 1450px;
+    margin: 35px auto 20px;
+    padding: 0 25px;
+}
+
+.hero-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    padding: 35px;
+    color: white;
+    background:
+        linear-gradient(135deg, rgba(214,52,105,.98), rgba(255,126,164,.95)),
+        linear-gradient(45deg, #ff6f9b, #c94b75);
+    box-shadow: 0 22px 60px rgba(211, 65, 112, .24);
+}
+
+.hero-card::after {
+    content: "♡";
+    position: absolute;
+    right: 55px;
+    bottom: -30px;
+    font-size: 180px;
+    opacity: .12;
+}
+
+.hero-card h1 {
+    margin: 0 0 8px;
+    font-size: clamp(30px, 5vw, 52px);
+    letter-spacing: -1.5px;
+}
+
+.hero-card p {
+    max-width: 760px;
+    opacity: .9;
+    margin: 0;
+    line-height: 1.8;
+}
+
+.hero-meta {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 8px 13px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.17);
+    border: 1px solid rgba(255,255,255,.25);
+    font-size: 13px;
+}
+
+.toolbar {
+    max-width: 1450px;
+    margin: 20px auto;
+    padding: 0 25px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.toolbar input {
+    flex: 1;
+    min-width: 220px;
+}
+
+.primary {
+    background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+    color: white;
+    border: 0;
+}
+
+.secondary {
+    background: #fff;
+}
+
+.dark .secondary {
+    background: #34252c;
+}
+
+.danger {
+    color: #c62d45;
+}
+
+.dashboard {
+    max-width: 1450px;
+    margin: 0 auto 60px;
+    padding: 0 25px;
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 20px;
+}
+
+.sidebar {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+}
+
+.sidebar-title {
+    padding: 8px 10px 12px;
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.side-link {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    padding: 12px;
+    border-radius: 13px;
+    margin-bottom: 3px;
+    transition: .2s;
+}
+
+.side-link:hover,
+.side-link.active {
+    background: var(--pink-100);
+    color: var(--pink-700);
+}
+
+.dark .side-link:hover,
+.dark .side-link.active {
+    background: #492b37;
+    color: #ffb1c9;
+}
+
+.content {
+    min-width: 0;
+}
+
+.section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+    scroll-margin-top: 100px;
+}
+
+.section-head {
+    padding: 20px 23px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(90deg, rgba(255,228,237,.6), transparent);
+}
+
+.dark .section-head {
+    background: linear-gradient(90deg, rgba(110,50,73,.25), transparent);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.section-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--pink-100);
+    font-size: 21px;
+}
+
+.dark .section-icon {
+    background: #4c2d39;
+}
+
+.section h2 {
+    font-size: 19px;
+    margin: 0;
+}
+
+.section-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.section-body {
+    padding: 22px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 15px;
+}
+
+.field {
+    grid-column: span 4;
+}
+
+.field.span-6 {
+    grid-column: span 6;
+}
+
+.field.span-8 {
+    grid-column: span 8;
+}
+
+.field.span-12 {
+    grid-column: span 12;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--muted);
+    margin: 0 0 7px;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.72);
+    color: var(--text);
+    border-radius: 13px;
+    padding: 12px 13px;
+    outline: none;
+    transition: .2s;
+}
+
+.dark input,
+.dark textarea {
+    background: #302329;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--pink-400);
+    box-shadow: 0 0 0 4px rgba(246,93,139,.10);
+}
+
+textarea {
+    min-height: 105px;
+    resize: vertical;
+}
+
+.voice-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.voice-row textarea {
+    flex: 1;
+}
+
+.mic {
+    width: 48px;
+    border: 0;
+    border-radius: 13px;
+    background: var(--pink-100);
+    color: var(--pink-700);
+    font-size: 19px;
+}
+
+.dark .mic {
+    background: #4b2d39;
+    color: #ffb3c9;
+}
+
+.mic.recording {
+    background: #ff547e;
+    color: white;
+    animation: pulse 1.1s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        box-shadow: 0 0 0 9px rgba(255,84,126,.12);
+    }
+}
+
+.timeline {
+    display: grid;
+    gap: 12px;
+}
+
+.timeline-item {
+    border-left: 3px solid var(--pink-300);
+    padding: 12px 15px;
+    background: rgba(255,231,239,.35);
+    border-radius: 0 14px 14px 0;
+}
+
+.dark .timeline-item {
+    background: rgba(91,50,66,.25);
+}
+
+.timeline-item strong {
+    color: var(--pink-700);
+}
+
+.record-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.record-table th,
+.record-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.record-table th {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.status {
+    display: inline-flex;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.status.green {
+    background: #e3f8ef;
+    color: #24885f;
+}
+
+.status.pink {
+    background: var(--pink-100);
+    color: var(--pink-700);
+}
+
+.status.orange {
+    background: #fff0df;
+    color: #b96923;
+}
+
+.status.red {
+    background: #ffe5e7;
+    color: #c93648;
+}
+
+.dark .status.green {
+    background: #244b3a;
+    color: #8be2bb;
+}
+
+.dark .status.pink {
+    background: #512b3a;
+    color: #ffb0c9;
+}
+
+.info-box {
+    padding: 15px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fff0f5, #fff8fa);
+    border: 1px solid var(--pink-200);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.dark .info-box {
+    background: #3a252d;
+    border-color: #62404d;
+}
+
+.emergency {
+    border: 1px solid #ffc4ca;
+    background: linear-gradient(135deg, #fff1f2, #fff9fa);
+}
+
+.dark .emergency {
+    background: #40272b;
+}
+
+.footer {
+    text-align: center;
+    color: var(--muted);
+    padding: 30px;
+    font-size: 12px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 999;
+    background: #38232b;
+    color: white;
+    padding: 13px 17px;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.2);
+    opacity: 0;
+    transform: translateY(15px);
+    pointer-events: none;
+    transition: .3s;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.print-only {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .side-link {
+        width: auto;
+        display: inline-block;
+    }
+}
+
+@media (max-width: 700px) {
+    .nav {
+        padding: 12px 15px;
+    }
+
+    .hero,
+    .toolbar,
+    .dashboard {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .hero-card {
+        padding: 25px;
+        border-radius: 24px;
+    }
+
+    .field,
+    .field.span-6,
+    .field.span-8,
+    .field.span-12 {
+        grid-column: span 12;
+    }
+
+    .section-body {
+        padding: 15px;
+    }
+
+    .nav-actions select {
+        max-width: 120px;
+    }
+
+    .record-table {
+        min-width: 680px;
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+    }
+}
+
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .topbar,
+    .toolbar,
+    .sidebar,
+    .hero,
+    .section-head button,
+    .mic,
+    .footer {
+        display: none !important;
+    }
+
+    .dashboard {
+        display: block;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .section {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        break-inside: avoid;
+    }
+
+    .print-only {
+        display: block;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <nav class="nav">
+        <div class="logo">
+            <div class="logo-icon">♡</div>
+            <span>PinkCare EMR</span>
+        </div>
+
+        <div class="nav-actions">
+            <select id="languageSelect" aria-label="Language">
+                <option value="zh-TW">繁體中文</option>
+                <option value="zh-CN">简体中文</option>
+                <option value="en">English</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="th">ไทย</option>
+                <option value="la">Latina</option>
+            </select>
+
+            <button class="icon-btn" onclick="toggleDark()" title="Dark Mode">☾</button>
+            <button class="icon-btn" onclick="window.print()" title="Print">🖨</button>
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-card">
+        <h1 data-i18n="title">個人電子病歷</h1>
+        <p data-i18n="subtitle">
+            多國語言 · 個人醫療資訊 · 語音輸入 · 私人健康檔案
+        </p>
+
+        <div class="hero-meta">
+            <span class="badge">🌸 PinkCare</span>
+            <span class="badge" data-i18n="demo">示範病歷</span>
+            <span class="badge">7 Languages</span>
+            <span class="badge">Voice Ready</span>
+        </div>
+    </div>
+</section>
+
+<div class="toolbar">
+    <input
+        id="searchInput"
+        class="small-input"
+        type="search"
+        data-placeholder="search"
+        placeholder="搜尋病歷內容……"
+        oninput="searchRecords()"
+    >
+
+    <button class="action-btn primary" onclick="saveRecord()">💾 <span data-i18n="save">保存</span></button>
+    <button class="action-btn" onclick="exportJSON()">⬇️ JSON</button>
+    <button class="action-btn" onclick="document.getElementById('fileInput').click()">⬆️ JSON</button>
+    <input id="fileInput" type="file" accept=".json" hidden onchange="importJSON(event)">
+    <button class="action-btn" onclick="speakRecord()">🔊 <span data-i18n="read">朗讀</span></button>
+    <button class="action-btn" onclick="toggleAll()">↕ <span data-i18n="toggle">展開/收合</span></button>
+</div>
+
+<main class="dashboard">
+
+    <aside class="sidebar">
+        <div class="sidebar-title" data-i18n="navigation">病歷導航</div>
+
+        <button class="side-link active" onclick="goTo('basic')">👤 <span data-i18n="basic">基本資料</span></button>
+        <button class="side-link" onclick="goTo('personal')">🧬 <span data-i18n="personal">個人史</span></button>
+        <button class="side-link" onclick="goTo('disease')">🏥 <span data-i18n="disease">疾病史</span></button>
+        <button class="side-link" onclick="goTo('family')">👨‍👩‍👧 <span data-i18n="family">家族史</span></button>
+        <button class="side-link" onclick="goTo('surgery')">🔪 <span data-i18n="surgery">手術史</span></button>
+        <button class="side-link" onclick="goTo('medication')">💊 <span data-i18n="medication">用藥史</span></button>
+        <button class="side-link" onclick="goTo('allergy')">⚠️ <span data-i18n="allergy">過敏史</span></button>
+        <button class="side-link" onclick="goTo('lifestyle')">🍃 <span data-i18n="lifestyle">生活習慣</span></button>
+        <button class="side-link" onclick="goTo('vaccines')">💉 <span data-i18n="vaccines">預防接種</span></button>
+        <button class="side-link" onclick="goTo('labs')">🧪 <span data-i18n="labs">檢查檢驗</span></button>
+        <button class="side-link" onclick="goTo('emergency')">🚑 <span data-i18n="emergency">緊急資訊</span></button>
+        <button class="side-link" onclick="goTo('notes')">📝 <span data-i18n="notes">醫療備註</span></button>
+    </aside>
+
+    <div class="content">
+
+        <!-- BASIC -->
+        <section class="section searchable" id="basic">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">👤</div>
+                    <div>
+                        <h2 data-i18n="basic">基本資料</h2>
+                        <div class="section-subtitle">Patient Profile · Profilum Aegri</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="grid">
+
+                    <div class="field">
+                        <label data-i18n="name">姓名</label>
+                        <input name="name" value="林雅晴">
+                    </div>
+
+                    <div class="field">
+                        <label data-i18n="dob">出生日期</label>
+                        <input name="dob" type="date" value="1992-05-18">
+                    </div>
+
+                    <div class="field">
+                        <label data-i18n="gender">性別</label>
+                        <input name="gender" value="女性">
+                    </div>
+
+                    <div class="field">
+                        <label>Blood Type / 血型</label>
+                        <input name="blood" value="O+">
+                    </div>
+
+                    <div class="field">
+                        <label>Height / 身高</label>
+                        <input name="height" value="165 cm">
+                    </div>
+
+                    <div class="field">
+                        <label>Weight / 體重</label>
+                        <input name="weight" value="58 kg">
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Email</label>
+                        <input name="email" value="demo@example.com">
+                    </div>
+
+                    <div class="field span-6">
+                        <label data-i18n="phone">電話</label>
+                        <input name="phone" value="+886 900 000 000">
+                    </div>
+
+                    <div class="field span-12">
+                        <label data-i18n="address">地址</label>
+                        <input name="address" value="台北市（示範資料）">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PERSONAL HISTORY -->
+        <section class="section searchable" id="personal">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">🧬</div>
+                    <div>
+                        <h2 data-i18n="personal">個人史</h2>
+                        <div class="section-subtitle">Personal History · Historia Personalis</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="grid">
+
+                    <div class="field span-6">
+                        <label>Childhood / 兒童期</label>
+                        <textarea name="childhood">足月出生。兒童期發育正常，無重大住院紀錄。</textarea>
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Development / 發育史</label>
+                        <textarea name="development">身心發育與同齡者相符。</textarea>
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Education / 教育史</label>
+                        <textarea name="education">大學畢業。</textarea>
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Occupation / 職業</label>
+                        <textarea name="occupation">行政／辦公室工作。</textarea>
+                    </div>
+
+                    <div class="field span-12">
+                        <label data-i18n="personalNotes">個人醫療相關摘要</label>
+                        <div class="voice-row">
+                            <textarea name="personalNotes">目前無已知重大慢性疾病。定期接受健康檢查。</textarea>
+                            <button class="mic" onclick="startVoice(this)" title="Voice Input">🎙</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- DISEASE HISTORY -->
+        <section class="section searchable" id="disease">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">🏥</div>
+                    <div>
+                        <h2 data-i18n="disease">疾病史</h2>
+                        <div class="section-subtitle">Medical History · Anamnesis Morborum</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="table-wrap">
+                    <table class="record-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Condition</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>2018</td>
+                                <td>Seasonal allergic rhinitis</td>
+                                <td><span class="status green">Stable</span></td>
+                                <td>季節性過敏性鼻炎，症狀間歇發作。</td>
+                            </tr>
+
+                            <tr>
+                                <td>2021</td>
+                                <td>Iron deficiency</td>
+                                <td><span class="status pink">Resolved</span></td>
+                                <td>曾接受營養與補充治療。</td>
+                            </tr>
+
+                            <tr>
+                                <td>2024</td>
+                                <td>Gastritis</td>
+                                <td><span class="status orange">Monitoring</span></td>
+                                <td>偶發胃部不適。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAMILY -->
+        <section class="section searchable" id="family">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">👨‍👩‍👧</div>
+                    <div>
+                        <h2 data-i18n="family">家族史</h2>
+                        <div class="section-subtitle">Family History · Historia Familiae</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="timeline">
+
+                    <div class="timeline-item">
+                        <strong>Father / 父親</strong>
+                        <div>高血壓病史；目前規律追蹤。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>Mother / 母親</strong>
+                        <div>無重大慢性疾病。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>Maternal Grandmother / 外祖母</strong>
+                        <div>第二型糖尿病。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>Paternal Grandfather / 祖父</strong>
+                        <div>心血管疾病病史。</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SURGERY -->
+        <section class="section searchable" id="surgery">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">🔪</div>
+                    <div>
+                        <h2 data-i18n="surgery">手術史</h2>
+                        <div class="section-subtitle">Surgical History · Historia Chirurgica</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="timeline">
+
+                    <div class="timeline-item">
+                        <strong>2015 · Wisdom tooth extraction</strong>
+                        <div>智齒拔除。無已知麻醉併發症。</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>2020 · No major surgery</strong>
+                        <div>無其他重大手術。</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MEDICATION -->
+        <section class="section searchable" id="medication">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">💊</div>
+                    <div>
+                        <h2 data-i18n="medication">用藥史</h2>
+                        <div class="section-subtitle">Medication History · Historia Medicamentorum</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="table-wrap">
+                    <table class="record-table">
+                        <thead>
+                            <tr>
+                                <th>Medication</th>
+                                <th>Purpose</th>
+                                <th>Frequency</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Example medication A</td>
+                                <td>過敏症狀控制</td>
+                                <td>依醫囑</td>
+                                <td><span class="status green">Active</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Example supplement B</td>
+                                <td>營養補充</td>
+                                <td>每日</td>
+                                <td><span class="status pink">Historical</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <br>
+
+                <div class="info-box">
+                    ⚠️ 此處為示範資料。實際醫療用途應由醫師、藥師或其他合格醫療專業人員確認藥物名稱、劑量、頻率與停藥資訊。
+                </div>
+            </div>
+        </section>
+
+        <!-- ALLERGY -->
+        <section class="section searchable" id="allergy">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">⚠️</div>
+                    <div>
+                        <h2 data-i18n="allergy">過敏史</h2>
+                        <div class="section-subtitle">Allergy History · Historia Allergiarum</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="grid">
+
+                    <div class="field span-6">
+                        <label>Drug Allergy / 藥物過敏</label>
+                        <textarea name="drugAllergy">目前無已知藥物過敏。</textarea>
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Food Allergy / 食物過敏</label>
+                        <textarea name="foodAllergy">目前無已知食物過敏。</textarea>
+                    </div>
+
+                    <div class="field span-12">
+                        <label>Other Allergy / 其他過敏</label>
+                        <textarea name="otherAllergy">季節性花粉可能造成鼻部症狀。</textarea>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- LIFESTYLE -->
+        <section class="section searchable" id="lifestyle">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">🍃</div>
+                    <div>
+                        <h2 data-i18n="lifestyle">生活習慣</h2>
+                        <div class="section-subtitle">Social & Lifestyle · Consuetudines Vitae</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="grid">
+
+                    <div class="field span-6">
+                        <label>Smoking / 吸菸</label>
+                        <input name="smoking" value="否">
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Alcohol / 飲酒</label>
+                        <input name="alcohol" value="偶爾">
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Exercise / 運動</label>
+                        <input name="exercise" value="每週約 3 次">
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Sleep / 睡眠</label>
+                        <input name="sleep" value="平均 7 小時">
+                    </div>
+
+                    <div class="field span-12">
+                        <label>Diet / 飲食</label>
+                        <textarea name="diet">一般飲食。平時注意蔬菜與蛋白質攝取。</textarea>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VACCINES -->
+        <section class="section searchable" id="vaccines">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">💉</div>
+                    <div>
+                        <h2 data-i18n="vaccines">預防接種</h2>
+                        <div class="section-subtitle">Immunization · Immunizationes</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="table-wrap">
+                    <table class="record-table">
+                        <thead>
+                            <tr>
+                                <th>Vaccine</th>
+                                <th>Date</th>
+                                <th>Dose</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Influenza</td>
+                                <td>2025</td>
+                                <td>Annual</td>
+                                <td><span class="status green">Completed</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>COVID-19</td>
+                                <td>2025</td>
+                                <td>Booster</td>
+                                <td><span class="status green">Completed</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Tetanus</td>
+                                <td>2023</td>
+                                <td>Booster</td>
+                                <td><span class="status pink">Recorded</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- LABS -->
+        <section class="section searchable" id="labs">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">🧪</div>
+                    <div>
+                        <h2 data-i18n="labs">檢查與檢驗</h2>
+                        <div class="section-subtitle">Laboratory & Diagnostic Records · Examinations</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="grid">
+
+                    <div class="field span-6">
+                        <label>Routine Blood Test / 常規血液檢查</label>
+                        <textarea name="bloodTest">2025 年健康檢查。具體數值請以正式檢驗報告為準。</textarea>
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Imaging / 影像檢查</label>
+                        <textarea name="imaging">目前無需長期追蹤的影像紀錄。</textarea>
+                    </div>
+
+                    <div class="field span-12">
+                        <label>Other Diagnostics / 其他檢查</label>
+                        <textarea name="diagnostics">定期健康檢查。</textarea>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EMERGENCY -->
+        <section class="section searchable" id="emergency">
+            <div class="section-head emergency">
+                <div class="section-title">
+                    <div class="section-icon">🚑</div>
+                    <div>
+                        <h2 data-i18n="emergency">緊急醫療資訊</h2>
+                        <div class="section-subtitle">Emergency Medical Information</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+                <div class="grid">
+
+                    <div class="field">
+                        <label>Blood Type / 血型</label>
+                        <input name="emergencyBlood" value="O+">
+                    </div>
+
+                    <div class="field">
+                        <label>Emergency Priority</label>
+                        <input name="priority" value="Standard">
+                    </div>
+
+                    <div class="field">
+                        <label>Preferred Language</label>
+                        <input name="preferredLanguage" value="繁體中文 / English">
+                    </div>
+
+                    <div class="field span-6">
+                        <label data-i18n="emergencyContact">緊急聯絡人</label>
+                        <input name="emergencyName" value="林先生（示範資料）">
+                    </div>
+
+                    <div class="field span-6">
+                        <label>Emergency Phone</label>
+                        <input name="emergencyPhone" value="+886 900 111 222">
+                    </div>
+
+                    <div class="field span-12">
+                        <label>Emergency Notes</label>
+                        <div class="voice-row">
+                            <textarea name="emergencyNotes">如發生緊急情況，請先確認身份、過敏史與目前用藥。</textarea>
+                            <button class="mic" onclick="startVoice(this)" title="Voice Input">🎙</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTES -->
+        <section class="section searchable" id="notes">
+            <div class="section-head">
+                <div class="section-title">
+                    <div class="section-icon">📝</div>
+                    <div>
+                        <h2 data-i18n="notes">醫療備註</h2>
+                        <div class="section-subtitle">Clinical Notes · Notae Medicae</div>
+                    </div>
+                </div>
+                <button class="icon-btn" onclick="collapse(this)">⌃</button>
+            </div>
+
+            <div class="section-body">
+
+                <div class="field span-12">
+                    <label data-i18n="notes">醫療備註</label>
+
+                    <div class="voice-row">
+                        <textarea name="medicalNotes">這是一份個人健康資訊示範頁面。正式醫療資料應以醫療機構的病歷及專業醫療人員判斷為準。</textarea>
+
+                        <button class="mic" onclick="startVoice(this)" title="Voice Input">
+                            🎙
+                        </button>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="info-box">
+                    🔒 <strong>Privacy / 隱私：</strong>
+                    本頁面是純前端靜態網站。資料會儲存在目前瀏覽器的
+                    <code>localStorage</code> 中，不會自動傳送至伺服器。
+                    但任何未加密的瀏覽器儲存都不應視為真正的醫療級安全儲存。
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<div class="footer">
+    PinkCare EMR · Static Personal Health Record ·
+    <span>Prototypus / Demo</span>
+</div>
+
+<div class="toast" id="toast">已保存</div>
+
+<script>
+
+/* =========================================================
+   LANGUAGE SYSTEM
+========================================================= */
+
+const translations = {
+
+    "zh-TW": {
+        title: "個人電子病歷",
+        subtitle: "多國語言 · 個人醫療資訊 · 語音輸入 · 私人健康檔案",
+        demo: "示範病歷",
+        save: "保存",
+        read: "朗讀",
+        toggle: "展開/收合",
+        navigation: "病歷導航",
+        basic: "基本資料",
+        personal: "個人史",
+        disease: "疾病史",
+        family: "家族史",
+        surgery: "手術史",
+        medication: "用藥史",
+        allergy: "過敏史",
+        lifestyle: "生活習慣",
+        vaccines: "預防接種",
+        labs: "檢查檢驗",
+        emergency: "緊急資訊",
+        notes: "醫療備註",
+        name: "姓名",
+        dob: "出生日期",
+        gender: "性別",
+        phone: "電話",
+        address: "地址",
+        personalNotes: "個人醫療相關摘要",
+        emergencyContact: "緊急聯絡人",
+        search: "搜尋病歷內容……"
+    },
+
+    "zh-CN": {
+        title: "个人电子病历",
+        subtitle: "多国语言 · 个人医疗信息 · 语音输入 · 私人健康档案",
+        demo: "示范病历",
+        save: "保存",
+        read: "朗读",
+        toggle: "展开/收合",
+        navigation: "病历导航",
+        basic: "基本资料",
+        personal: "个人史",
+        disease: "疾病史",
+        family: "家族史",
+        surgery: "手术史",
+        medication: "用药史",
+        allergy: "过敏史",
+        lifestyle: "生活习惯",
+        vaccines: "预防接种",
+        labs: "检查检验",
+        emergency: "紧急信息",
+        notes: "医疗备注",
+        name: "姓名",
+        dob: "出生日期",
+        gender: "性别",
+        phone: "电话",
+        address: "地址",
+        personalNotes: "个人医疗相关摘要",
+        emergencyContact: "紧急联系人",
+        search: "搜索病历内容……"
+    },
+
+    "en": {
+        title: "Personal Electronic Medical Record",
+        subtitle: "Multilingual · Personal Health Information · Voice Input · Private Health File",
+        demo: "Demo Record",
+        save: "Save",
+        read: "Read Aloud",
+        toggle: "Expand / Collapse",
+        navigation: "Medical Record",
+        basic: "Basic Profile",
+        personal: "Personal History",
+        disease: "Medical History",
+        family: "Family History",
+        surgery: "Surgical History",
+        medication: "Medication History",
+        allergy: "Allergy History",
+        lifestyle: "Lifestyle",
+        vaccines: "Immunizations",
+        labs: "Laboratory & Diagnostics",
+        emergency: "Emergency Information",
+        notes: "Medical Notes",
+        name: "Name",
+        dob: "Date of Birth",
+        gender: "Gender",
+        phone: "Phone",
+        address: "Address",
+        personalNotes: "Personal Medical Summary",
+        emergencyContact: "Emergency Contact",
+        search: "Search medical record…"
+    },
+
+    "ja": {
+        title: "個人電子カルテ",
+        subtitle: "多言語 · 個人医療情報 · 音声入力 · 健康記録",
+        demo: "デモ記録",
+        save: "保存",
+        read: "読み上げ",
+        toggle: "展開 / 折りたたみ",
+        navigation: "カルテナビ",
+        basic: "基本情報",
+        personal: "個人歴",
+        disease: "既往歴",
+        family: "家族歴",
+        surgery: "手術歴",
+        medication: "服薬歴",
+        allergy: "アレルギー歴",
+        lifestyle: "生活習慣",
+        vaccines: "予防接種",
+        labs: "検査・診断",
+        emergency: "緊急情報",
+        notes: "医療メモ",
+        name: "氏名",
+        dob: "生年月日",
+        gender: "性別",
+        phone: "電話番号",
+        address: "住所",
+        personalNotes: "個人医療概要",
+        emergencyContact: "緊急連絡先",
+        search: "カルテを検索…"
+    },
+
+    "ko": {
+        title: "개인 전자 의무기록",
+        subtitle: "다국어 · 개인 의료정보 · 음성 입력 · 건강 기록",
+        demo: "데모 기록",
+        save: "저장",
+        read: "읽어주기",
+        toggle: "열기 / 닫기",
+        navigation: "진료기록 탐색",
+        basic: "기본 정보",
+        personal: "개인력",
+        disease: "병력",
+        family: "가족력",
+        surgery: "수술력",
+        medication: "복약력",
+        allergy: "알레르기력",
+        lifestyle: "생활습관",
+        vaccines: "예방접종",
+        labs: "검사 및 진단",
+        emergency: "응급 정보",
+        notes: "의료 메모",
+        name: "이름",
+        dob: "생년월일",
+        gender: "성별",
+        phone: "전화",
+        address: "주소",
+        personalNotes: "개인 의료 요약",
+        emergencyContact: "응급 연락처",
+        search: "진료기록 검색…"
+    },
+
+    "th": {
+        title: "เวชระเบียนอิเล็กทรอนิกส์ส่วนบุคคล",
+        subtitle: "หลายภาษา · ข้อมูลสุขภาพส่วนบุคคล · ป้อนข้อมูลด้วยเสียง",
+        demo: "ข้อมูลตัวอย่าง",
+        save: "บันทึก",
+        read: "อ่านออกเสียง",
+        toggle: "ขยาย / ย่อ",
+        navigation: "เมนูเวชระเบียน",
+        basic: "ข้อมูลพื้นฐาน",
+        personal: "ประวัติส่วนบุคคล",
+        disease: "ประวัติการเจ็บป่วย",
+        family: "ประวัติครอบครัว",
+        surgery: "ประวัติการผ่าตัด",
+        medication: "ประวัติการใช้ยา",
+        allergy: "ประวัติการแพ้",
+        lifestyle: "พฤติกรรมการใช้ชีวิต",
+        vaccines: "ประวัติการฉีดวัคซีน",
+        labs: "การตรวจและห้องปฏิบัติการ",
+        emergency: "ข้อมูลฉุกเฉิน",
+        notes: "บันทึกทางการแพทย์",
+        name: "ชื่อ",
+        dob: "วันเกิด",
+        gender: "เพศ",
+        phone: "โทรศัพท์",
+        address: "ที่อยู่",
+        personalNotes: "สรุปข้อมูลทางการแพทย์",
+        emergencyContact: "ผู้ติดต่อฉุกเฉิน",
+        search: "ค้นหาเวชระเบียน…"
+    },
+
+    "la": {
+        title: "Commentarium Medicum Electronicum",
+        subtitle: "Multilingue · Historia Sanitatis Personalis · Vox",
+        demo: "Exemplum",
+        save: "Serva",
+        read: "Lege",
+        toggle: "Expande / Collige",
+        navigation: "Navigatio",
+        basic: "Notitia Personalis",
+        personal: "Historia Personalis",
+        disease: "Historia Morborum",
+        family: "Historia Familiae",
+        surgery: "Historia Chirurgica",
+        medication: "Historia Medicamentorum",
+        allergy: "Historia Allergiarum",
+        lifestyle: "Consuetudines Vitae",
+        vaccines: "Immunizationes",
+        labs: "Examinationes",
+        emergency: "Notitia Urgenta",
+        notes: "Notae Medicae",
+        name: "Nomen",
+        dob: "Dies Nativitatis",
+        gender: "Sexus",
+        phone: "Telephonum",
+        address: "Origo",
+        personalNotes: "Summarium Medicum",
+        emergencyContact: "Contactus Urgens",
+        search: "Quaere in commentario…"
+    }
+};
+
+let currentLanguage = "zh-TW";
+
+document.getElementById("languageSelect").addEventListener("change", function () {
+    currentLanguage = this.value;
+    applyLanguage();
+});
+
+function applyLanguage() {
+
+    const t = translations[currentLanguage];
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+
+        if (t[key]) {
+            el.textContent = t[key];
+        }
+    });
+
+    document.querySelectorAll("[data-placeholder]").forEach(el => {
+        const key = el.dataset.placeholder;
+
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+    });
+
+    document.documentElement.lang = currentLanguage;
+
+    showToast(
+        currentLanguage === "zh-TW"
+        ? "語言已切換"
+        : "Language changed"
+    );
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goTo(id) {
+
+    const target = document.getElementById(id);
+
+    if (!target) return;
+
+    target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    document.querySelectorAll(".side-link").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    event.currentTarget.classList.add("active");
+}
+
+/* =========================================================
+   COLLAPSE
+========================================================= */
+
+function collapse(button) {
+
+    const section = button.closest(".section");
+    const body = section.querySelector(".section-body");
+
+    if (body.classList.contains("hidden")) {
+        body.classList.remove("hidden");
+        button.textContent = "⌃";
+    } else {
+        body.classList.add("hidden");
+        button.textContent = "⌄";
+    }
+}
+
+function toggleAll() {
+
+    const bodies = document.querySelectorAll(".section-body");
+
+    const shouldOpen =
+        [...bodies].some(body => body.classList.contains("hidden"));
+
+    bodies.forEach(body => {
+
+        body.classList.toggle("hidden", !shouldOpen);
+
+        const btn =
+            body.closest(".section")
+                .querySelector(".section-head .icon-btn");
+
+        if (btn) {
+            btn.textContent = shouldOpen ? "⌃" : "⌄";
+        }
+    });
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchRecords() {
+
+    const keyword =
+        document.getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    document.querySelectorAll(".searchable").forEach(section => {
+
+        const text = section.innerText.toLowerCase();
+
+        if (!keyword || text.includes(keyword)) {
+            section.classList.remove("hidden");
+        } else {
+            section.classList.add("hidden");
+        }
+    });
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+function toggleDark() {
+
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem(
+        "pinkcare-dark",
+        document.body.classList.contains("dark")
+    );
+}
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function collectFormData() {
+
+    const data = {};
+
+    document.querySelectorAll("input[name], textarea[name]").forEach(el => {
+        data[el.name] = el.value;
+    });
+
+    data.language = currentLanguage;
+    data.updatedAt = new Date().toISOString();
+
+    return data;
+}
+
+function saveRecord() {
+
+    const data = collectFormData();
+
+    localStorage.setItem(
+        "pinkcare-emr",
+        JSON.stringify(data)
+    );
+
+    showToast(
+        currentLanguage === "zh-TW"
+        ? "病歷已保存到本機瀏覽器"
+        : "Medical record saved locally"
+    );
+}
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function loadRecord() {
+
+    const saved = localStorage.getItem("pinkcare-emr");
+
+    if (!saved) return;
+
+    try {
+
+        const data = JSON.parse(saved);
+
+        Object.keys(data).forEach(key => {
+
+            const el =
+                document.querySelector(`[name="${key}"]`);
+
+            if (el) {
+                el.value = data[key];
+            }
+        });
+
+    } catch (error) {
+        console.warn("Could not load local record.");
+    }
+}
+
+/* =========================================================
+   EXPORT JSON
+========================================================= */
+
+function exportJSON() {
+
+    const data = collectFormData();
+
+    const blob = new Blob(
+        [JSON.stringify(data, null, 2)],
+        {type: "application/json"}
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download =
+        "pinkcare-medical-record-" +
+        new Date().toISOString().slice(0,10) +
+        ".json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    showToast("JSON exported");
+}
+
+/* =========================================================
+   IMPORT JSON
+========================================================= */
+
+function importJSON(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        try {
+
+            const data = JSON.parse(e.target.result);
+
+            Object.keys(data).forEach(key => {
+
+                const el =
+                    document.querySelector(`[name="${key}"]`);
+
+                if (el) {
+                    el.value = data[key];
+                }
+            });
+
+            saveRecord();
+
+            showToast("JSON imported");
+
+        } catch (error) {
+
+            alert("JSON 格式無法讀取。");
+
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+/* =========================================================
+   VOICE INPUT
+========================================================= */
+
+let activeRecognition = null;
+
+function startVoice(button) {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+        alert(
+            "目前瀏覽器不支援 Web Speech API。\n" +
+            "建議使用最新版 Chrome 或 Edge。"
+        );
+
+        return;
+    }
+
+    const textarea =
+        button.parentElement.querySelector("textarea");
+
+    if (!textarea) return;
+
+    if (activeRecognition) {
+
+        activeRecognition.stop();
+        activeRecognition = null;
+
+        button.classList.remove("recording");
+
+        return;
+    }
+
+    const recognition =
+        new SpeechRecognition();
+
+    recognition.lang =
+        getSpeechLanguage(currentLanguage);
+
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
+    activeRecognition = recognition;
+
+    button.classList.add("recording");
+
+    const original =
+        textarea.value
+        ? textarea.value + " "
+        : "";
+
+    recognition.onresult = function(event) {
+
+        let transcript = "";
+
+        for (
+            let i = event.resultIndex;
+            i < event.results.length;
+            i++
+        ) {
+            transcript +=
+                event.results[i][0].transcript;
+        }
+
+        textarea.value =
+            original + transcript;
+    };
+
+    recognition.onerror = function(event) {
+
+        console.warn("Speech recognition:", event.error);
+
+        button.classList.remove("recording");
+        activeRecognition = null;
+    };
+
+    recognition.onend = function() {
+
+        button.classList.remove("recording");
+        activeRecognition = null;
+    };
+
+    recognition.start();
+}
+
+function getSpeechLanguage(lang) {
+
+    const map = {
+        "zh-TW": "zh-TW",
+        "zh-CN": "zh-CN",
+        "en": "en-US",
+        "ja": "ja-JP",
+        "ko": "ko-KR",
+        "th": "th-TH",
+        "la": "la"
+    };
+
+    return map[lang] || "zh-TW";
+}
+
+/* =========================================================
+   TEXT TO SPEECH
+========================================================= */
+
+function speakRecord() {
+
+    if (!("speechSynthesis" in window)) {
+
+        alert("此瀏覽器不支援語音朗讀。");
+
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const data = collectFormData();
+
+    const text = Object.entries(data)
+        .filter(([key]) => key !== "language" && key !== "updatedAt")
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(". ");
+
+    const utterance =
+        new SpeechSynthesisUtterance(text);
+
+    utterance.lang =
+        getSpeechLanguage(currentLanguage);
+
+    utterance.rate = 0.9;
+
+    speechSynthesis.speak(utterance);
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 2500);
+}
+
+/* =========================================================
+   AUTO SAVE
+========================================================= */
+
+let autoSaveTimer;
+
+document.addEventListener("input", function() {
+
+    clearTimeout(autoSaveTimer);
+
+    autoSaveTimer =
+        setTimeout(() => {
+
+            const data = collectFormData();
+
+            localStorage.setItem(
+                "pinkcare-emr",
+                JSON.stringify(data)
+            );
+
+        }, 1200);
+});
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+window.addEventListener("load", function() {
+
+    if (
+        localStorage.getItem("pinkcare-dark")
+        === "true"
+    ) {
+        document.body.classList.add("dark");
+    }
+
+    loadRecord();
+    applyLanguage();
+
+});
+
+</script>
+
+</body>
+</html>
